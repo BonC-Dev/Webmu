@@ -15,3 +15,8 @@ test('same bytes with another name are a duplicate', async () => {
   const second = await importFile(new File([bytes], 'two.gb'), 'gb');
   assert.equal(second.duplicate, true);
 });
+import {canTransition} from '../js/player.js';
+test('player state rules allow cancellation', () => {
+  assert.equal(canTransition('loading', 'closing'), true);
+  assert.equal(canTransition('running', 'loading'), false);
+});

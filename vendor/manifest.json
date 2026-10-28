@@ -1,0 +1,427 @@
+{
+  "emulatorjs": "4.2.3",
+  "emulatorjsCommit": "e150dc0491ae747028919fb82d6598954976ede6",
+  "ruffle": "0.7.1",
+  "modifications": [
+    "Disabled the EmulatorJS constructor update-check call for the offline local build. All other engine code is upstream."
+  ],
+  "files": [
+    {
+      "path": "vendor/emulatorjs/data/compression/README.md",
+      "sha256": "c01bf373463b6eac94ce2db8f6102010c104683bd70203e9b1343865693d1db5"
+    },
+    {
+      "path": "vendor/emulatorjs/data/compression/libunrar.js",
+      "sha256": "bc35b98ec95020ec047f4762de3e66629741eee3826022195498d2a1e0fc102c"
+    },
+    {
+      "path": "vendor/emulatorjs/data/compression/libunrar.wasm",
+      "sha256": "e4ea9bd0b13a9767916b424469e30205f47f267ecd9125ed56fb9ff0b9bc1b58"
+    },
+    {
+      "path": "vendor/emulatorjs/LICENSE",
+      "sha256": "a617fab6d251b3302b1cb2c1c94f52d1c584f6fcb2fc218ec1a475bc08053a61"
+    },
+    {
+      "path": "vendor/emulatorjs/data/compression/extractzip.js",
+      "sha256": "3cc825428724213acd43d30552a78008e0869b2326de17dee240dbff9ee2f629"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/.npmignore",
+      "sha256": "d3292e2e707ee065e70e3951a707b1dd4dafdbb1cbae92d629a64140b8f62211"
+    },
+    {
+      "path": "vendor/emulatorjs/data/compression/extract7z.js",
+      "sha256": "4ac9933b995a516cb6b3ca4027db860278372a20c21c405d93ceb1998498853a"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/README.md",
+      "sha256": "ec0354ffd59788fddabc2908d218127456092f8c9c0e6be7d16dcf7c158ac838"
+    },
+    {
+      "path": "vendor/emulatorjs/data/emulator.css",
+      "sha256": "0ba5b1ce183b6ecb95c17e54e89fbae77697ebb94ec23caca5fd19f9b569defe"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/core-README.md",
+      "sha256": "e738526e4a8943f5f2641ce890a0c951ee796b0e91844f0390ee689c0cff135a"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/package.json",
+      "sha256": "b4e81cbe374449913936d219957c1c2ef5c4248741ad984f5dc1e32dbc95a617"
+    },
+    {
+      "path": "vendor/emulatorjs/data/localization/README.md",
+      "sha256": "bb6832a0cbc3feb5ab5cc0ad86606f830bd06d118703e6964476b78f41c5eb55"
+    },
+    {
+      "path": "vendor/emulatorjs/data/localization/af-FR.json",
+      "sha256": "98c0a0748b8a79c4888b756cc032721203bd07ab1e01c82ceb78bf507531bae9"
+    },
+    {
+      "path": "vendor/emulatorjs/data/loader.js",
+      "sha256": "69e0903bf1e2f62ced78895e7e511fa26e11316f7eb734925c35e919ba1287b2"
+    },
+    {
+      "path": "vendor/emulatorjs/data/localization/de-GER.json",
+      "sha256": "370590727debfb65fbd07c6622bb4ddc8ab25c465aeaa83f9d4ec7ad6552d8dd"
+    },
+    {
+      "path": "vendor/emulatorjs/data/localization/el-GR.json",
+      "sha256": "304ebd42b2275028deab2806022238e80f4c0470f982f86788ad4cafec8b94bd"
+    },
+    {
+      "path": "vendor/emulatorjs/data/localization/ar-AR.json",
+      "sha256": "7f08398ad9cf828c1c6d8cdaa65f9352d4873691475e14b76cbb11b802f8dc28"
+    },
+    {
+      "path": "vendor/emulatorjs/data/localization/es-ES.json",
+      "sha256": "88be7f8de1e1fce480ce8883a975fc7c7985208e5b100a297591cea07bc97e46"
+    },
+    {
+      "path": "vendor/emulatorjs/data/localization/ben-BEN.json",
+      "sha256": "09a2adec9d6d26cbf1b007f1f39f3787f487fe421cae499048712a261e540545"
+    },
+    {
+      "path": "vendor/emulatorjs/data/localization/fa-AF.json",
+      "sha256": "e9e21fb390ebcc5c1170ccf4fbc62caece7997f0c14bd4da5da2e3720c864103"
+    },
+    {
+      "path": "vendor/emulatorjs/data/localization/en-US.json",
+      "sha256": "b0c9a9bb92ecd2d03614ee2b0eeda160e883ee79ea94d9e8131addb92c5803f9"
+    },
+    {
+      "path": "vendor/emulatorjs/data/localization/it-IT.json",
+      "sha256": "90b2febc77fa1c4ed672f5669dfedddc5f40409e2ddbe0d84e43366ea9e957c3"
+    },
+    {
+      "path": "vendor/emulatorjs/data/localization/ja-JA.json",
+      "sha256": "bcde0373941009e441094c2a75736598ca7ed0e6b7c09ab7f7a6bc5a7afa068a"
+    },
+    {
+      "path": "vendor/emulatorjs/data/localization/hi-HI.json",
+      "sha256": "63b7e7a676facd3e29e352e92f716f4a1065b606e2bf302e5fdd3dec531b1182"
+    },
+    {
+      "path": "vendor/emulatorjs/data/localization/jv-JV.json",
+      "sha256": "16e5f8d17eae444268a1c7fd7833a955201e7090af54d69ddfb4c075cd53e710"
+    },
+    {
+      "path": "vendor/emulatorjs/data/localization/ko-KO.json",
+      "sha256": "c5822e658e952dc1f20cfee36a1be8b3d6f5ad3026e3b4ad5ab42af6aebdefa9"
+    },
+    {
+      "path": "vendor/emulatorjs/data/localization/ro-RO.json",
+      "sha256": "a58ad0f67d49c56db5f4e274e2cd1a03581b593ba4a6321dffc6ef129ecc373a"
+    },
+    {
+      "path": "vendor/emulatorjs/data/localization/pt-BR.json",
+      "sha256": "6aced4ba66a75ffaac8b43db3e4bd1678e9d6a781b508ecf38a21b8bc3047474"
+    },
+    {
+      "path": "vendor/emulatorjs/data/localization/retroarch.json",
+      "sha256": "31e0c9c1876402da54219ad6da5294eafe78e94d4663e7d2b02193d1b14925b7"
+    },
+    {
+      "path": "vendor/emulatorjs/data/localization/ru-RU.json",
+      "sha256": "9ac48f105165af995fe48180f2f9fc84661755a44647cfa571a3f69e33ca1476"
+    },
+    {
+      "path": "vendor/emulatorjs/data/localization/tr-TR.json",
+      "sha256": "37aa1368de761196f439604a1b04b0d11e2858a3bdcc7c392db37e6306d02ecc"
+    },
+    {
+      "path": "vendor/emulatorjs/data/localization/zh-CN.json",
+      "sha256": "a20b7d3c3395d3cce4d697b45555e4228c076f07caba1c2bcf76bb66bedb79d2"
+    },
+    {
+      "path": "vendor/emulatorjs/data/localization/vi-VN.json",
+      "sha256": "60c6d3a730a067f3f8af8cb12cec96d275221b5c6c89cade8285345e38e99605"
+    },
+    {
+      "path": "vendor/emulatorjs/data/src/GameManager.js",
+      "sha256": "f026130eda3648557498c54c70cbb5b36fd71b088e7e42e5a13e413aab11d888"
+    },
+    {
+      "path": "vendor/emulatorjs/data/src/compression.js",
+      "sha256": "bd6723ec29fee8de81118cfbddfcb53301b8f41f7c6fb22c2de44dedbf111c2c"
+    },
+    {
+      "path": "vendor/emulatorjs/data/src/nipplejs.js",
+      "sha256": "cf745190f5dc5db942ad54f5683d56c6d6da445646f4b4fc23c049c9985a04df"
+    },
+    {
+      "path": "vendor/emulatorjs/data/src/gamepad.js",
+      "sha256": "27707ee9256cf3e1a6f32d1c3c42f2aed991d637773699fff566008229cc09c8"
+    },
+    {
+      "path": "vendor/emulatorjs/data/src/emulator.js",
+      "sha256": "313e8495cfd3342fc99ef78ead5b4cf8488175a86557d9e6b477425be2746966",
+      "upstreamSha256": "24ebac4baf739892046b82c3bdf01d5b6795b801b77d289e43a4c7d59f9666be"
+    },
+    {
+      "path": "vendor/emulatorjs/data/src/shaders.js",
+      "sha256": "79bcd4c35740b2858fc28f2f1894ddb8f483f1aba6f564869a713515726fe902"
+    },
+    {
+      "path": "vendor/emulatorjs/data/version.json",
+      "sha256": "d8991427000a96fb97daefdb62178071e9bbff911760706148e584ae8d69f9e7"
+    },
+    {
+      "path": "vendor/emulatorjs/data/src/storage.js",
+      "sha256": "06759f310bb2d782d2728e1d3417a0d8f613eff935d2959c1a705670041a6f2e"
+    },
+    {
+      "path": "vendor/emulatorjs/data/src/socket.io.min.js",
+      "sha256": "b0e735814f8dcfecd6cdb8a7ce95a297a7e1e5f2727a29e6f5901801d52fa0c5"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/gambatte-legacy-wasm.data",
+      "sha256": "940a7381d51223c0be0c0f98d1a988d42cc98d03c27b392cbd29cb9f357b5f62"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/gambatte-thread-legacy-wasm.data",
+      "sha256": "5d41544df5d8c4a14708de2f01f5ef47d17a2ef728306b4ccdfb3f9cbaddd644"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/gambatte-thread-wasm.data",
+      "sha256": "7fd8f7d94fde1e2eea02659b0bd7679b5621b60f1ff0ea4c8b02753759ba1686"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/gambatte-wasm.data",
+      "sha256": "ad67c7bf57f8f8b62606048e6ea498afac5b5abc76ad8de5f9dfc2a6719374bb"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/reports/gambatte.json",
+      "sha256": "a240a47bd6b2a38a6c46ee63c80bdcd24befbd50474453df4898d49282bd5f57"
+    },
+    {
+      "path": "vendor/packages/core-gambatte/package.json",
+      "sha256": "ca08292766d8540bc8d98e8c4817f4c14d26083d947ffb67dc02a9fad1bc387d"
+    },
+    {
+      "path": "vendor/packages/core-gambatte/README.md",
+      "sha256": "8f31efb9a4f939c1033a4ca05b1fe38150b75fa5ae7360342f7084fa05741371"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/mgba-legacy-wasm.data",
+      "sha256": "e300d2f368c82bf61d77c972c36e367cf16408ec3d50beede080337519a3d696"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/mgba-thread-legacy-wasm.data",
+      "sha256": "6fc1184bcb0a855497ca323840a767beb7b4b3c9e4ca55d41d505cdeb0c941d8"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/mgba-thread-wasm.data",
+      "sha256": "c3b948e3112067af494805730101173ee1b43900765eb113eec0fd3fc5675c3b"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/mgba-wasm.data",
+      "sha256": "01fcaf6d4296ef1db6676e0c69400c4474e24572d0b2b99cc097e4ae885e02d7"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/reports/mgba.json",
+      "sha256": "08219f6c855a9d996f04ed21169bb0c5ac64d469a8a536468b9876205b5c268d"
+    },
+    {
+      "path": "vendor/packages/core-mgba/package.json",
+      "sha256": "1059b95ff26fd09e649514d119363281ab5f49b7b9eddb3c45ae837c70c676cb"
+    },
+    {
+      "path": "vendor/packages/core-mgba/README.md",
+      "sha256": "19a92752b133fc6f2c16df3330cd364850521be19f735a063c883b71dd00f329"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/fceumm-legacy-wasm.data",
+      "sha256": "f1054b094e7149fd6278485bc1b2e51ff75c5259048ddb1134171e53d651f239"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/fceumm-thread-legacy-wasm.data",
+      "sha256": "6b62276c8a0d03bf2473d5e0c1bb78c0bdb11c31ed7fc2bb86f5c1df8a83909d"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/fceumm-thread-wasm.data",
+      "sha256": "4ad3b222c51963a95f3f44d9c99910766d54402658bf252e8ce4813b58465e2a"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/fceumm-wasm.data",
+      "sha256": "8c449fd5c36646fb0769423ed6ffa9efbdfc21fbfdc9bac7952b559d34d5b493"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/reports/fceumm.json",
+      "sha256": "13dbbfba0ea1bea087c97c38f47dd49c3fb8f16c3f5ed5678dd75d352b737132"
+    },
+    {
+      "path": "vendor/packages/core-fceumm/package.json",
+      "sha256": "9d9643a31cffe45d9d6ba1c37400cb50a869f181ac9d19348114eda38ff2e55d"
+    },
+    {
+      "path": "vendor/packages/core-fceumm/README.md",
+      "sha256": "b87750da081152efb873ad6d9ae047c2725a414fe22c1cabbf0fde1455e576e1"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/snes9x-legacy-wasm.data",
+      "sha256": "7d427a575cefad98ff400493fa1d7e892da63fe7bab68979babd9cea0bfaaf3b"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/snes9x-thread-legacy-wasm.data",
+      "sha256": "ff42e32210825eeb4fe270b2bb88723f98b48f7abaa3f263d4d2b82496c256d7"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/snes9x-thread-wasm.data",
+      "sha256": "a42f3e39f4608ef65edaf7f803f1245bab9103c19417dbc3e4d00c5b09861bb4"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/snes9x-wasm.data",
+      "sha256": "eaa0bcfce67673809886e50387a80a616b719502175db64c090d04c9d75958ee"
+    },
+    {
+      "path": "vendor/packages/core-snes9x/package.json",
+      "sha256": "c0475c87435d4a2ddb559246498f7939d9699a9109927cb36cce8f99fb44b0c2"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/reports/snes9x.json",
+      "sha256": "dc7ac963eb7935a7ac78956235ac0b8912ec785c57026336825aa2ed8031b3ad"
+    },
+    {
+      "path": "vendor/packages/core-snes9x/README.md",
+      "sha256": "f11f57261f95b1ce9f05f45060d97a5c99fa37c8d1eda5c49a08688455b729dc"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/genesis_plus_gx-legacy-wasm.data",
+      "sha256": "2a1edeb68d7ec882149ed3cd5d3aa95a6ac231ebabaf82cdb56175a8b62967cc"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/genesis_plus_gx-thread-legacy-wasm.data",
+      "sha256": "988141b1d75a25eeb9e3594bd3e04c7b208e2a49219c38f2941901c91a703909"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/genesis_plus_gx-thread-wasm.data",
+      "sha256": "2455919c32bbde27b6d74eadf7694ea4d137c149ce2fa7d279e54e9bee993132"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/genesis_plus_gx-wasm.data",
+      "sha256": "190297a6f86757405090f1a2266f67dfe1a570a528c583434ed3641a5664f768"
+    },
+    {
+      "path": "vendor/emulatorjs/data/cores/reports/genesis_plus_gx.json",
+      "sha256": "5936a8ce8d7f010d5bfdd8c3bba2b2414f103b3a703121e56f2724b24dbe7ff3"
+    },
+    {
+      "path": "vendor/packages/core-genesis_plus_gx/package.json",
+      "sha256": "4f635d9e966b76955d1c61a2bd1d9acbb49ae083a4c43b0a46f9b1816da8bed2"
+    },
+    {
+      "path": "vendor/packages/core-genesis_plus_gx/README.md",
+      "sha256": "796450224f3c5da3d0c34d0e532b783f2c9c63e92ab48654eac44d1f275fe969"
+    },
+    {
+      "path": "vendor/ruffle/LICENSE_APACHE",
+      "sha256": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a"
+    },
+    {
+      "path": "vendor/ruffle/LICENSE_MIT",
+      "sha256": "4de9338a7879c68e911742a7d691f0797ff1ef8d8a6fb978b0c711e258fe959c"
+    },
+    {
+      "path": "vendor/ruffle/core.ruffle.16d61072ac7fdc4d5013.js",
+      "sha256": "d27c6bdce2a34afb32e8dfa40970bc7e86cbcb912f92db7eb3e1ac70e943bd82"
+    },
+    {
+      "path": "vendor/ruffle/core.ruffle.994eeef0a471a88cd0e3.js",
+      "sha256": "d89e507ee60d550629e9229aa1e4dd4f9e75ec7db271e0135cbc87dab042ea51"
+    },
+    {
+      "path": "vendor/ruffle/ruffle.js",
+      "sha256": "26036a94567088dfb3de88a759e8ed10a4cea07b29500af36f345eef42420098"
+    },
+    {
+      "path": "vendor/ruffle/package.json",
+      "sha256": "822dd0fe6f6a84d4ab41351acd2a789aa9ef75b3fe454ab846c0858157c48d89"
+    },
+    {
+      "path": "vendor/ruffle/core.ruffle.16d61072ac7fdc4d5013.js.map",
+      "sha256": "29e40a59a1ee20c848adc5e1a99a8bc5d78beedcaaf1c6a41b9f4a455067a899"
+    },
+    {
+      "path": "vendor/ruffle/core.ruffle.994eeef0a471a88cd0e3.js.map",
+      "sha256": "0c097859936752cbae062d7cbb3a9f54bf1f532c015d3eb18ddacbbcb9827457"
+    },
+    {
+      "path": "vendor/ruffle/ruffle.js.map",
+      "sha256": "bf8dabc8144a0e087cdbade5da77de5a998ab55a271b32bae6e3173248d4188a"
+    },
+    {
+      "path": "vendor/ruffle/README.md",
+      "sha256": "cdbeefd04e27a2fe80f735210fa4c054e376802eb43a16d9b6eeae78500f2bde"
+    },
+    {
+      "path": "vendor/ruffle/172de42e6619eac8f371.wasm",
+      "sha256": "1ed33b9b71a6b01b9aafafed660be343ffeb2d246c5d79e6425a32bf93e38207"
+    },
+    {
+      "path": "vendor/ruffle/878d548199cddef07035.wasm",
+      "sha256": "af9b6a13a8f5e8d305bc3ce28a4edf3f6242df1183e8576ad4ca086e9f21eaea"
+    },
+    {
+      "path": "vendor/licenses/gambatte/build.json",
+      "sha256": "27d8d02b31afc26c5beeb9dd6a8603b1b2d05c447fef13288e12ef2066090996"
+    },
+    {
+      "path": "vendor/licenses/gambatte/core.json",
+      "sha256": "e5517aa0ad81bac4ed81294f09b98df0e3dc8082be2456f14b7835554b22c932"
+    },
+    {
+      "path": "vendor/licenses/gambatte/license.txt",
+      "sha256": "ab15fd526bd8dd18a9e77ebc139656bf4d33e97fc7238cd11bf60e2b9b8666c6"
+    },
+    {
+      "path": "vendor/licenses/mgba/build.json",
+      "sha256": "27d8d02b31afc26c5beeb9dd6a8603b1b2d05c447fef13288e12ef2066090996"
+    },
+    {
+      "path": "vendor/licenses/mgba/core.json",
+      "sha256": "11554eace30dd2974c6e583fd8721c1b3239b77369f271a58625240c0e7e4e10"
+    },
+    {
+      "path": "vendor/licenses/mgba/license.txt",
+      "sha256": "fab3dd6bdab226f1c08630b1dd917e11fcb4ec5e1e020e2c16f83a0a13863e85"
+    },
+    {
+      "path": "vendor/licenses/fceumm/build.json",
+      "sha256": "27d8d02b31afc26c5beeb9dd6a8603b1b2d05c447fef13288e12ef2066090996"
+    },
+    {
+      "path": "vendor/licenses/fceumm/core.json",
+      "sha256": "5d568c0241a1ffb1e8b0496fd864d8be390b88f4ca5ce031be6e67a2ebfcf17e"
+    },
+    {
+      "path": "vendor/licenses/fceumm/license.txt",
+      "sha256": "a6996dcf0c334281f734560926e079b2dbbd5b78e81c0ca00a413ec01e1cd2fb"
+    },
+    {
+      "path": "vendor/licenses/snes9x/build.json",
+      "sha256": "27d8d02b31afc26c5beeb9dd6a8603b1b2d05c447fef13288e12ef2066090996"
+    },
+    {
+      "path": "vendor/licenses/snes9x/core.json",
+      "sha256": "e8a3844e92d8d7758ade84b76bf42542ef0ff28e90df370f0344a4b15c89c65b"
+    },
+    {
+      "path": "vendor/licenses/snes9x/license.txt",
+      "sha256": "70efeee282d82a6e9d26aeed5466d08c632369858371dc6a4644c8dcedc2be78"
+    },
+    {
+      "path": "vendor/licenses/genesis_plus_gx/build.json",
+      "sha256": "27d8d02b31afc26c5beeb9dd6a8603b1b2d05c447fef13288e12ef2066090996"
+    },
+    {
+      "path": "vendor/licenses/genesis_plus_gx/core.json",
+      "sha256": "b66a99b847343f43644e072a472787a0eca045517771c843dbd054e6959834c6"
+    },
+    {
+      "path": "vendor/licenses/genesis_plus_gx/license.txt",
+      "sha256": "c38ff8ea57f501f63a8e4a9e22a67be12eb006345ce2059f0419b69d8f7734cd"
+    }
+  ]
+}
