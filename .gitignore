@@ -1,0 +1,8 @@
+node_modules/
+.runtime/
+test-results/
+
+# Personal library backups and exported game checkpoints
+webmu-full-*.json
+webmu-metadata-*.json
+webmu-game-save*.json

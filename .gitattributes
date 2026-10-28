@@ -1,0 +1,12 @@
+vendor/** -text
+assets/logos/** -text -whitespace
+*.png binary
+*.gb binary
+*.swf binary
+
+# Keep upstream game notices intact
+assets/examples/tobu/** -text -whitespace
+
+assets/examples/games/** binary
+# Upstream readmes use Markdown underline headings, not merge markers.
+assets/examples/licenses/** -text -whitespace conflict-marker-size=32
