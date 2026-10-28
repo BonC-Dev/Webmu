@@ -4,8 +4,9 @@ import {systems,getSystem,suggestSystem} from './systems.js';
 import {selectGames} from './library.js';
 import {createPlayer} from './player.js';
 import {examples} from './examples.js';
+import {exportBackup,prepareBackup,restoreBackup,maxBackupSize} from './backup.js';
 const $ = id => document.getElementById(id);
-let games=[],view='all',entries=[],editing,returnFocus,locked=false;
+let games=[],view='all',entries=[],editing,returnFocus,locked=false,preparedBackup;
 const covers=new Map();
 function say(message,error=false) {$('notice').hidden=false;$('notice').textContent=message;$('notice').classList.toggle('error',error);}
 function button(text,action,className='') {const element=document.createElement('button');element.textContent=text;element.className=className;element.onclick=action;return element;}
@@ -81,7 +82,16 @@ async function addExample(example,play=false){const response=await fetch('assets
 for(const example of examples){const card=document.createElement('article');card.className='game-card example-card';const image=document.createElement('img');image.className='cover';image.src='assets/covers/'+example.cover;image.alt='';const tag=document.createElement('p');tag.className='game-meta';tag.textContent=getSystem(example.system).displayName.toUpperCase()+' / ORIGINAL EXAMPLE';const title=document.createElement('h3');title.textContent=example.title;const description=document.createElement('p');description.className='example-description';description.textContent=example.description;card.append(image,tag,title,description,button('Try this example ↗',busy(()=>addExample(example,true)),'play'));$('examples').append(card);}
 $('examplesButton').onclick=busy(async()=>{for(const example of examples)await addExample(example);say('Examples added. Pick one to try the player.');});
 $('helpOpen').onclick=()=>$('helpDialog').showModal();
-$('backupOpen').onclick=async()=>{$('backupDialog').showModal();const estimate=await navigator.storage?.estimate?.();$('storageUsage').textContent=estimate?'This origin uses about '+(estimate.usage/1048576).toFixed(1)+' MB of '+(estimate.quota/1073741824).toFixed(1)+' GB available.':'This browser does not report storage usage.';};
+$('backupOpen').onclick=busy(async()=>{$('backupDialog').showModal();const estimate=await navigator.storage?.estimate?.();$('storageUsage').textContent=estimate?'This origin uses about '+(estimate.usage/1048576).toFixed(1)+' MB of '+(estimate.quota/1073741824).toFixed(1)+' GB available.':'This browser does not report storage usage.';});
+for(const [id,full] of [['exportMetadata',false],['exportFull',true]])$(id).onclick=busy(async()=>{
+  try{const blob=await exportBackup(full);const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download='webmu-'+(full?'full':'metadata')+'-'+new Date().toISOString().slice(0,10)+'.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);$('restoreSummary').textContent='Backup download started.';}catch(error){$('restoreSummary').textContent=error.message;}
+});
+$('restoreInput').onchange=async()=>{
+  const file=$('restoreInput').files[0];preparedBackup=null;$('restoreConfirm').hidden=true;if(!file)return;
+  try{if(file.size>maxBackupSize)throw Error('Backups must be 96 MB or smaller.');$('restoreSummary').textContent='Checking the backup and its file hashes…';preparedBackup=await prepareBackup(JSON.parse(await file.text()));$('restoreSummary').textContent=preparedBackup.backup.gameMetadata.length+' games in this '+preparedBackup.backup.kind+' backup. Existing entries will stay.';$('restoreConfirm').hidden=false;}
+  catch(error){$('restoreSummary').textContent='Could not read this backup: '+error.message;}
+};
+$('restoreConfirm').onclick=busy(async()=>{if(!preparedBackup)return;const messages=[];const result=await restoreBackup(preparedBackup,message=>messages.push(message));$('restoreSummary').textContent=result.restored+' restored, '+result.duplicates+' duplicates, '+result.missing+' missing files, '+result.failed+' failed. '+messages.join(' ');preparedBackup=null;$('restoreConfirm').hidden=true;$('restoreInput').value='';await refresh();});
 window.addEventListener('pagehide',()=>{player.close();for(const url of covers.values())URL.revokeObjectURL(url);});
 refresh().catch(error=>say('The library could not open: '+error.message+'. Existing browser data was left alone.',true));
 export {refresh};

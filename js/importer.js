@@ -31,7 +31,7 @@ export function validateFile(name, bytes, systemId) {
 export function validateMetadata(game) {
   if (!game || typeof game.id!=='string' || !game.id || game.id.length>100 || typeof game.title!=='string' || !game.title.trim() || game.title.length>120 ||
       !getSystem(game.system) || !/^[a-f0-9]{64}$/.test(game.fileId) || !Number.isFinite(game.addedAt) || typeof game.favorite!=='boolean' ||
-      !(game.lastPlayed===null || Number.isFinite(game.lastPlayed))) throw Error('A game record has invalid metadata.');
+      !(game.lastPlayed===null || Number.isFinite(game.lastPlayed)) || (game.notes!==undefined && (typeof game.notes!=='string'||game.notes.length>1000)) || (game.example!==undefined && typeof game.example!=='boolean')) throw Error('A game record has invalid metadata.');
   return game;
 }
 export async function importFile(file, systemId, example = false) {
@@ -40,7 +40,11 @@ export async function importFile(file, systemId, example = false) {
   validateFile(file.name, bytes, systemId);
   const hash = await contentHash(bytes);
   const games = await read('Games');
-  if (games.some(game => game.fileId===hash)) return {duplicate:true};
+  const existing=games.find(game => game.fileId===hash);
+  if(existing){
+    if(!(await read('Files',hash))?.blob){await write([{store:'Files',value:{id:hash,name:file.name,blob:new Blob([bytes]),size:file.size}}]);return {game:existing,repaired:true};}
+    return {duplicate:true,game:existing};
+  }
   const game = {id:crypto.randomUUID(),title:file.name.replace(/\.[^.]+$/,'').slice(0,120),system:systemId,fileId:hash,favorite:false,addedAt:Date.now(),lastPlayed:null,example};
   await write([{store:'Files',value:{id:hash,name:file.name,blob:new Blob([bytes]),size:file.size}}, {store:'Games',value:game}]);
   return {game};

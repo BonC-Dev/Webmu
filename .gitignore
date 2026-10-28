@@ -6,3 +6,5 @@ test-results/
 webmu-full-*.json
 webmu-metadata-*.json
 webmu-game-save*.json
+tools/checks/
+tools/input-assets/
