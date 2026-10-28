@@ -26,7 +26,7 @@ export function validateBackup(backup) {
 }
 export async function exportBackup(full) {
   const games=await read('Games');games.forEach(validateMetadata);
-  const backup={format:'webmu',formatVersion:1,exportedAt:new Date().toISOString(),kind:full?'full':'metadata',gameMetadata:games.slice(1),fileManifest:[],covers:[]};
+  const backup={format:'webmu',formatVersion:1,exportedAt:new Date().toISOString(),kind:full?'full':'metadata',gameMetadata:games,fileManifest:[],covers:[]};
   let size=0;
   for(const game of games){const file=await read('Files',game.fileId);if(!file?.blob){if(full)throw Error('The file for “'+game.title+'” is missing. A full backup cannot be completed.');continue;}size+=file.blob.size;if(full&&size>64*1024*1024)throw Error('Split libraries over 64 MB before making a full JSON backup.');const entry={id:file.id,name:file.name,size:file.blob.size};if(full)entry.content=encode(new Uint8Array(await file.blob.arrayBuffer()));backup.fileManifest.push(entry);}
   if(full)for(const cover of await read('Covers')){if(!games.some(game=>game.id===cover.id))continue;size+=cover.blob.size;if(size>64*1024*1024)throw Error('The full backup exceeds the 64 MB binary limit.');backup.covers.push({id:cover.id,type:cover.blob.type,content:encode(new Uint8Array(await cover.blob.arrayBuffer()))});}
