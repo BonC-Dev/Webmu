@@ -38,7 +38,7 @@ export async function importFile(file, systemId, example = false) {
   if (file.size>maxFileSize) throw Error('Files must be 32 MB or smaller.');
   const bytes = await file.arrayBuffer();
   validateFile(file.name, bytes, systemId);
-  const hash = file.name;
+  const hash = await contentHash(bytes);
   const games = await read('Games');
   if (games.some(game => game.fileId===hash)) return {duplicate:true};
   const game = {id:crypto.randomUUID(),title:file.name.replace(/\.[^.]+$/,'').slice(0,120),system:systemId,fileId:hash,favorite:false,addedAt:Date.now(),lastPlayed:null,example};
