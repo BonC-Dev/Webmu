@@ -1,4 +1,4 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Webmu</title></head>
 <body><h1>Webmu</h1><p>A place for the games you keep coming back to.</p><label>Game files <input type="file" multiple id="files"></label><p id="status">Your library is empty. Import a game to start.</p><ul id="games"></ul>
-<script type="module">document.querySelector('#files').onchange = event => {for (const file of event.target.files) {const row=document.createElement('li');row.textContent=file.name;document.querySelector('#games').append(row);}document.querySelector('#status').textContent='Files selected. Storage and playback come next.';};</script></body></html>
+<script type="module" src="js/app.js"></script></body></html>
