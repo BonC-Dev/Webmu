@@ -2,7 +2,7 @@ import {read, write} from './database.js';
 import {getSystem} from './systems.js';
 import * as emulatorjs from './engines/emulatorjs.js';
 import * as ruffle from './engines/ruffle.js';
-export const transitions={idle:['loading'],loading:['running','error'],running:['closing','error'],closing:['idle'],error:['closing']};
+export const transitions={idle:['loading'],loading:['running','closing','error'],running:['closing','error'],closing:['idle'],error:['closing']};
 export function canTransition(from,to) {return transitions[from]?.includes(to) || false;}
 export function createPlayer(container, onState) {
   let state='idle',frame,url,timer,token,adapter,active;
