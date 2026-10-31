@@ -594,6 +594,11 @@ window.addEventListener('pagehide', () => {
 });
 async function startLibrary() {
   await refresh();
+  await read('Settings', 'starter-games-v1');
+  say('Adding the sample games...');
+  for (const example of examples) await addExample(example);
+  await write([{ store: 'Settings', value: { id: 'starter-games-v1', value: true } }]);
+  $('notice').hidden = true;
 }
 const ready = busy(startLibrary)();
 export { refresh, ready };
