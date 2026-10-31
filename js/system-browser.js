@@ -123,9 +123,9 @@ export function createSystemBrowser(onSelect) {
   }
   function move(direction) {
     const now = performance.now();
-    if (now - lastArrowClick < 0) return;
+    if (now - lastArrowClick < 400) return;
     lastArrowClick = now;
-    destination = (destination ?? position) + direction;
+    destination = Math.round(position) + direction;
   }
   document.getElementById('previousSystem').onclick = () => move(-1);
   document.getElementById('nextSystem').onclick = () => move(1);
