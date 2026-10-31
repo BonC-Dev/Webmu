@@ -4,7 +4,7 @@ export function selectGames(
 ) {
   let selected = games.filter(
     (game) =>
-      !game.title.toLowerCase().includes(search.trim().toLowerCase()) &&
+      game.title.toLowerCase().includes(search.trim().toLowerCase()) &&
       (!system || game.system === system) &&
       (view !== 'favorites' || game.favorite) &&
       (view !== 'recent' || game.lastPlayed)
