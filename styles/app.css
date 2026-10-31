@@ -1507,3 +1507,100 @@ footer {
   background-repeat: no-repeat;
 }
 
+.startup-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  overflow: hidden;
+  animation: finish-intro 2s step-end forwards;
+}
+.intro-blackout {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  animation: peel-curtain 1.6s linear forwards;
+}
+.intro-caption {
+  position: absolute;
+  right: 18vw;
+  bottom: 14vh;
+  z-index: 1;
+  margin: 0;
+  color: #ed3434;
+  font-size: clamp(30px, 5vw, 64px);
+  line-height: 1.1;
+  animation: drop-caption 2s linear forwards;
+}
+.startup-intro img {
+  position: absolute;
+  width: min(180px, 35vw);
+  height: 80px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 2px #ffffff90);
+}
+.intro-flying-logo {
+  left: 0;
+  animation: fly-logo 680ms ease-in-out both;
+}
+.intro-last-logo {
+  left: 68%;
+  top: 28%;
+  animation: last-logo 1.6s linear both;
+}
+@keyframes fly-logo {
+  from {
+    transform: translate(-35vw, 75vh) rotate(-12deg);
+  }
+  to {
+    transform: translate(135vw, -85vh) rotate(8deg);
+  }
+}
+@keyframes last-logo {
+  0%,
+  45% {
+    transform: translate(-100vw, 90vh) rotate(-12deg);
+    animation-timing-function: ease-out;
+  }
+  67.5% {
+    transform: translate(0, 0) rotate(8deg);
+    animation-timing-function: ease-in;
+  }
+  100% {
+    transform: translate(90vw, -90vh) rotate(14deg);
+  }
+}
+@keyframes peel-curtain {
+  0%,
+  67.5% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 100%);
+  }
+  83.75% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 0);
+  }
+  100% {
+    clip-path: polygon(100% 0, 100% 0, 100% 0, 100% 0, 100% 0);
+  }
+}
+@keyframes drop-caption {
+  0%,
+  0% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.65, 0, 1, 0.35);
+  }
+  100% {
+    transform: translateY(calc(14vh + 100% + 20px));
+  }
+}
+@keyframes finish-intro {
+  0% {
+    visibility: visible;
+  }
+  100% {
+    visibility: hidden;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .startup-intro {
+    display: none;
+  }
+}
