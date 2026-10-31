@@ -1583,7 +1583,7 @@ footer {
 }
 @keyframes drop-caption {
   0%,
-  0% {
+  80% {
     transform: translateY(0);
     animation-timing-function: cubic-bezier(0.65, 0, 1, 0.35);
   }
