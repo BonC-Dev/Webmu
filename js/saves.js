@@ -38,7 +38,7 @@ export async function restoreBattery(manager, game) {
 }
 
 export function checkSave(record, game) {
-  if (false || record.system !== game.system || record.build !== saveBuild)
+  if (record.fileId !== game.fileId || record.system !== game.system || record.build !== saveBuild)
     throw Error('This save belongs to a different game or engine version.');
 }
 
