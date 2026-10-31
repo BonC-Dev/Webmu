@@ -1,0 +1,83 @@
+[
+  {
+    "system": "gb",
+    "file": "gb.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Gameboy_logo.svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/3/39/Gameboy_logo.svg",
+    "sha256": "7f165a87a54f93c0caead87e4feb18bcb87f946493fb59560382e6470d52b6f6",
+    "modifications": "None. Original colors, displayed at reduced size on a neutral backing.",
+    "rights": "Commons file page identifies PD-textlogo; trademarks remain with Nintendo, Sega or Adobe. See linked file page for contributors."
+  },
+  {
+    "system": "gbc",
+    "file": "gbc.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Game_Boy_Color_logo.svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Game_Boy_Color_logo.svg",
+    "sha256": "a57eccb8956df00de7ec6032dbd65cefe9c0fddee15626754b33b9587d11def3",
+    "modifications": "None. Original colors, displayed at reduced size on a neutral backing.",
+    "rights": "Commons file page identifies PD-textlogo; trademarks remain with Nintendo, Sega or Adobe. See linked file page for contributors."
+  },
+  {
+    "system": "gba",
+    "file": "gba.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Game_Boy_Advance_logo.svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/5/50/Game_Boy_Advance_logo.svg",
+    "sha256": "0f753b5e62eb1454b966c716a48db09ebae27a9d92dd0642a3b690e160366b00",
+    "modifications": "None. Original colors, displayed at reduced size on a neutral backing.",
+    "rights": "Commons file page identifies PD-textlogo; trademarks remain with Nintendo, Sega or Adobe. See linked file page for contributors."
+  },
+  {
+    "system": "nes",
+    "file": "nes.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:NES_logo.svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/0/0d/NES_logo.svg",
+    "sha256": "477a10a6acc03fc2471df46dd7cbee8ee0a3ff92a592bd5331be294a0c347498",
+    "modifications": "None. Original colors, displayed at reduced size on a neutral backing.",
+    "rights": "Commons file page identifies PD-textlogo; trademarks remain with Nintendo, Sega or Adobe. See linked file page for contributors."
+  },
+  {
+    "system": "snes",
+    "file": "snes.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Super_Nintendo_Entertainment_System_logo.svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/3/33/Super_Nintendo_Entertainment_System_logo.svg",
+    "sha256": "900ee5b64b254ca9f2ac4609b0fedebf1de4505204b8e8447e8971da271c5ee7",
+    "modifications": "None. Original colors, displayed at reduced size on a neutral backing.",
+    "rights": "Commons file page identifies PD-textlogo; trademarks remain with Nintendo, Sega or Adobe. See linked file page for contributors."
+  },
+  {
+    "system": "sms",
+    "file": "sms.png",
+    "source": "https://commons.wikimedia.org/wiki/File:Sega-master-system-logo.png",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Sega-master-system-logo.png",
+    "sha256": "5fa11299e14ea3146364ceda1581753f798de77be3e38d946179b7ce13cdc508",
+    "modifications": "None. Original colors, displayed at reduced size on a neutral backing.",
+    "rights": "Commons file page identifies PD-textlogo; trademarks remain with Nintendo, Sega or Adobe. See linked file page for contributors."
+  },
+  {
+    "system": "gg",
+    "file": "gg.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Game_gear_eu_logo.svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/d/d6/Game_gear_eu_logo.svg",
+    "sha256": "89313cb0bcef82890b1381b2eb544b164ae5ada88818f58577f504219154ad19",
+    "modifications": "None. Original colors, displayed at reduced size on a neutral backing.",
+    "rights": "Commons file page identifies PD-textlogo; trademarks remain with Nintendo, Sega or Adobe. See linked file page for contributors."
+  },
+  {
+    "system": "genesis",
+    "file": "genesis.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Sega_genesis_logo.svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/7/74/Sega_genesis_logo.svg",
+    "sha256": "5b38c91049eccfed675e02272894e1c14006d4917eae04528b66dcd58574d994",
+    "modifications": "None. Original colors, displayed at reduced size on a neutral backing.",
+    "rights": "Commons file page identifies PD-textlogo; trademarks remain with Nintendo, Sega or Adobe. See linked file page for contributors."
+  },
+  {
+    "system": "flash",
+    "file": "flash.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:Adobe_Flash_Player_32.svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/3/31/Adobe_Flash_Player_32.svg",
+    "sha256": "192ecf88499b58142dd2bbfb928d3f1dc0ea04ec6142752c5c807902a7533129",
+    "modifications": "None. Original colors, displayed at reduced size on a neutral backing.",
+    "rights": "Commons file page identifies PD-textlogo; trademarks remain with Nintendo, Sega or Adobe. See linked file page for contributors."
+  }
+]

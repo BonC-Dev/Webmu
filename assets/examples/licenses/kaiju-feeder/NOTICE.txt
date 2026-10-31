@@ -1,0 +1,8 @@
+Kaiju Feeder
+Original game: Zalo. Game Gear port: toxa.
+Software license: MIT, as stated on the release page:
+https://www.smspower.org/Homebrew/KaijuFeeder-GG
+Source: https://github.com/untoxa/Kaiju-Feeder
+Commit: b75b8e75fa489c780f03e0a3345ac61bfaa4856d
+Built without source changes using CrossZGB v2026.1, make gg.
+The upstream source has no separate license file. The release page is the license declaration.

@@ -1,0 +1,4 @@
+Nonogram Advance uses agb (Mozilla Public License 2.0).
+The game manifest declares agb 0.22.6. Matching library source is included in agb-v0.22.6-source.zip.
+Upstream source and releases: https://github.com/agbrs/agb
+Keep this notice, the MPL license and access to that source when distributing the game.

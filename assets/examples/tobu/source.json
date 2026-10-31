@@ -1,0 +1,14 @@
+{
+  "title": "Tobu Tobu Girl",
+  "author": "Tangram Games",
+  "music": "potato-tan",
+  "download": "https://tangramgames.itch.io/tobutobugirl",
+  "uploadId": "678889",
+  "source": "https://github.com/SimonLarsen/tobutobugirl/tree/048a22c2d7ebbe25811322e8692803fa86bb643a",
+  "codeLicense": "MIT",
+  "assetLicense": "CC-BY-4.0",
+  "assetLicenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+  "romFile": "../Tobu Tobu Girl.gb",
+  "romSha256": "5d3871cae77db2287807e8914fd21f76203e73aa3fec20955489d45cb4571d8f",
+  "modifications": "ROM unchanged. Cover is a screenshot of the game captured in Webmu."
+}

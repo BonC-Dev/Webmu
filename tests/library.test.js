@@ -1,31 +1,174 @@
-import {test,beforeEach} from 'node:test';
+import { test, beforeEach } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import 'fake-indexeddb/auto';
-import {read,write,removeGame,openDatabase} from '../js/database.js';
-import {importFile,importBatch,validateMetadata,validateFile,contentHash} from '../js/importer.js';
-import {selectGames} from '../js/library.js';
-import {suggestSystem} from '../js/systems.js';
-import {exportBackup,prepareBackup,restoreBackup,validateBackup} from '../js/backup.js';
-import {canTransition} from '../js/player.js';
-const bytes=await fs.readFile(new URL('../assets/examples/Pocket Meadow.gb',import.meta.url));
-function file(name='test.gb') {return new File([bytes],name);}
-async function imported() {return (await importFile(file(),'gb')).game;}
-beforeEach(async()=>{for(const store of ['Games','Files','Covers','Settings','Saves']){const rows=await read(store);if(rows.length)await write([],rows.map(row=>({store,id:row.id})));}});
-test('version 1 migration creates all five stores and a unique file index',async()=>{const db=await openDatabase();assert.equal(db.version,1);assert.deepEqual(Array.from(db.objectStoreNames),['Covers','Files','Games','Saves','Settings']);assert.equal(db.transaction('Games').objectStore('Games').index('fileId').unique,true);});
-test('uppercase names are suggested, ambiguous BIN requires a choice',()=>{assert.equal(suggestSystem('HELLO.GBC'),'gbc');assert.equal(suggestSystem('title.bin'),'');assert.equal(suggestSystem('game.zip'),'');});
-test('a file persists with stable game and content identifiers',async()=>{const game=await imported();assert.equal((await read('Games',game.id)).fileId,await contentHash(bytes));assert.equal((await read('Files',game.fileId)).blob.size,bytes.length);});
-test('same bytes with another name are a duplicate',async()=>{await imported();assert.equal((await importFile(file('renamed.GB'),'gb')).duplicate,true);assert.equal((await read('Games')).length,1);});
-test('mixed batches preserve successful imports',async()=>{const messages=[];const result=await importBatch([{file:file(),system:'gb'},{file:new File([],'empty.gb'),system:'gb'},{file:file('again.gb'),system:'gb'},{file:new File(['not a rom'],'broken.nes'),system:'nes'}],(...message)=>messages.push(message));assert.deepEqual(result,{imported:1,duplicates:1,failed:2});assert.equal(messages.length,4);assert.equal((await read('Games')).length,1);});
-test('missing file can be repaired by reimporting without losing metadata',async()=>{const game=await imported();await write([], [{store:'Files',id:game.fileId}]);const result=await importFile(file(),'gb');assert.equal(result.repaired,true);assert.equal(result.game.id,game.id);});
-test('wrong format and broken cartridge checksums are rejected',()=>{assert.throws(()=>validateFile('game.zip',bytes.buffer,'gb'),/extension/);const bad=Uint8Array.from(bytes);bad[0x134]^=1;assert.throws(()=>validateFile('bad.gb',bad.buffer,'gb'),/checksum/);assert.throws(()=>validateFile('x.swf',new Uint8Array(10).buffer,'flash'),/SWF/);});
-test('invalid metadata cannot enter a backup',()=>{assert.throws(()=>validateMetadata({title:'hi'}),/metadata/);assert.throws(()=>validateBackup({formatVersion:99}),/version 1/);});
-test('search, favorites, system filters and sorts combine',()=>{const games=[{title:'Zelda',system:'gb',favorite:true,addedAt:1,lastPlayed:4},{title:'Another title',system:'nes',favorite:false,addedAt:3,lastPlayed:null},{title:'zelda sample',system:'gb',favorite:false,addedAt:2,lastPlayed:5}];assert.equal(selectGames(games,{search:'ZELDA',view:'favorites',system:'gb'}).length,1);assert.equal(selectGames(games,{view:'recent'})[0].lastPlayed,5);assert.equal(selectGames(games,{sort:'title'})[0].title,'Another title');assert.equal(games[0].title,'Zelda');});
-test('full backup restores after removal, preserving file bytes',async()=>{const game=await imported();const prepared=await prepareBackup(JSON.parse(await (await exportBackup(true)).text()));await removeGame(game);assert.equal((await read('Games')).length,0);assert.equal((await restoreBackup(prepared)).restored,1);const restored=(await read('Games'))[0];assert.equal(await contentHash(await (await read('Files',restored.fileId)).blob.arrayBuffer()),game.fileId);});
-test('restore into a nonempty library skips identical content',async()=>{await imported();const prepared=await prepareBackup(JSON.parse(await (await exportBackup(true)).text()));const before=(await read('Games'))[0];assert.equal((await restoreBackup(prepared)).duplicates,1);assert.equal((await read('Games'))[0].id,before.id);});
-test('metadata-only backup reports missing game files',async()=>{const game=await imported();const prepared=await prepareBackup(JSON.parse(await (await exportBackup(false)).text()));await removeGame(game);assert.equal((await restoreBackup(prepared)).missing,1);assert.equal((await read('Games')).length,0);});
-test('corrupt backup hashes are rejected before writing',async()=>{await imported();const backup=JSON.parse(await (await exportBackup(true)).text());backup.fileManifest[0].content=btoa('broken');await assert.rejects(prepareBackup(backup),/hash/);assert.equal((await read('Games')).length,1);});
-test('restore resolves a conflicting ID without replacing its existing game',async()=>{const game=await imported();const prepared=await prepareBackup(JSON.parse(await (await exportBackup(true)).text()));await removeGame(game);await write([{store:'Games',value:{...game,fileId:'a'.repeat(64),title:'keep this'}}]);assert.equal((await restoreBackup(prepared)).restored,1);assert.equal((await read('Games',game.id)).title,'keep this');assert.equal((await read('Games')).length,2);});
-test('a failed atomic write does not leave a stray file',async()=>{const game=await imported();await assert.rejects(write([{store:'Files',value:{id:'stray',blob:new Blob(['x'])}},{store:'Games',value:{...game,id:'second'}}]));assert.equal(await read('Files','stray'),undefined);});
-test('deleting a game removes its cover and saves but keeps unrelated entries',async()=>{const game=await imported();await write([{store:'Covers',value:{id:game.id,blob:new Blob(['cover'])}},{store:'Saves',value:{id:'one',gameId:game.id}},{store:'Settings',value:{id:'preference',value:1}}]);await removeGame(game);assert.equal((await read('Covers')).length,0);assert.equal((await read('Saves')).length,0);assert.equal((await read('Settings')).length,1);});
-test('player state rules allow cancellation and block duplicate launch',()=>{assert.equal(canTransition('loading','closing'),true);assert.equal(canTransition('running','loading'),false);assert.equal(canTransition('error','closing'),true);assert.equal(canTransition('closing','idle'),true);});
+import { read, write, removeGame, openDatabase } from '../js/database.js';
+import {
+  importFile,
+  importBatch,
+  validateMetadata,
+  validateFile,
+  contentHash
+} from '../js/importer.js';
+import { selectGames } from '../js/library.js';
+import { suggestSystem } from '../js/systems.js';
+import { exportBackup, prepareBackup, restoreBackup, validateBackup } from '../js/backup.js';
+import { canTransition } from '../js/player.js';
+const bytes = await fs.readFile(new URL('../assets/examples/Pocket Meadow.gb', import.meta.url));
+function file(name = 'test.gb') {
+  return new File([bytes], name);
+}
+async function imported() {
+  return (await importFile(file(), 'gb')).game;
+}
+beforeEach(async () => {
+  for (const store of ['Games', 'Files', 'Covers', 'Settings', 'Saves']) {
+    const rows = await read(store);
+    if (rows.length)
+      await write(
+        [],
+        rows.map((row) => ({ store, id: row.id }))
+      );
+  }
+});
+test('version 1 migration creates all five stores and a unique file index', async () => {
+  const db = await openDatabase();
+  assert.equal(db.version, 1);
+  assert.deepEqual(Array.from(db.objectStoreNames), [
+    'Covers',
+    'Files',
+    'Games',
+    'Saves',
+    'Settings'
+  ]);
+  assert.equal(db.transaction('Games').objectStore('Games').index('fileId').unique, true);
+});
+test('uppercase names are suggested, ambiguous BIN requires a choice', () => {
+  assert.equal(suggestSystem('HELLO.GBC'), 'gbc');
+  assert.equal(suggestSystem('title.bin'), '');
+  assert.equal(suggestSystem('game.zip'), '');
+});
+test('a file persists with stable game and content identifiers', async () => {
+  const game = await imported();
+  assert.equal((await read('Games', game.id)).fileId, await contentHash(bytes));
+  assert.equal((await read('Files', game.fileId)).blob.size, bytes.length);
+});
+test('same bytes with another name are a duplicate', async () => {
+  await imported();
+  assert.equal((await importFile(file('renamed.GB'), 'gb')).duplicate, true);
+  assert.equal((await read('Games')).length, 1);
+});
+test('mixed batches preserve successful imports', async () => {
+  const messages = [];
+  const result = await importBatch(
+    [
+      { file: file(), system: 'gb' },
+      { file: new File([], 'empty.gb'), system: 'gb' },
+      { file: file('again.gb'), system: 'gb' },
+      { file: new File(['not a rom'], 'broken.nes'), system: 'nes' }
+    ],
+    (...message) => messages.push(message)
+  );
+  assert.deepEqual(result, { imported: 1, duplicates: 1, failed: 2 });
+  assert.equal(messages.length, 4);
+  assert.equal((await read('Games')).length, 1);
+});
+test('missing file can be repaired by reimporting without losing metadata', async () => {
+  const game = await imported();
+  await write([], [{ store: 'Files', id: game.fileId }]);
+  const result = await importFile(file(), 'gb');
+  assert.equal(result.repaired, true);
+  assert.equal(result.game.id, game.id);
+});
+test('wrong format and broken cartridge checksums are rejected', () => {
+  assert.throws(() => validateFile('game.zip', bytes.buffer, 'gb'), /extension/);
+  const bad = Uint8Array.from(bytes);
+  bad[0x134] ^= 1;
+  assert.throws(() => validateFile('bad.gb', bad.buffer, 'gb'), /checksum/);
+  assert.throws(() => validateFile('x.swf', new Uint8Array(10).buffer, 'flash'), /SWF/);
+});
+test('invalid metadata cannot enter a backup', () => {
+  assert.throws(() => validateMetadata({ title: 'hi' }), /metadata/);
+  assert.throws(() => validateBackup({ formatVersion: 99 }), /version 1/);
+});
+test('search, favorites, system filters and sorts combine', () => {
+  const games = [
+    { title: 'Zelda', system: 'gb', favorite: true, addedAt: 1, lastPlayed: 4 },
+    { title: 'Another title', system: 'nes', favorite: false, addedAt: 3, lastPlayed: null },
+    { title: 'zelda sample', system: 'gb', favorite: false, addedAt: 2, lastPlayed: 5 }
+  ];
+  assert.equal(selectGames(games, { search: 'ZELDA', view: 'favorites', system: 'gb' }).length, 1);
+  assert.equal(selectGames(games, { view: 'recent' })[0].lastPlayed, 5);
+  assert.equal(selectGames(games, { sort: 'title' })[0].title, 'Another title');
+  assert.equal(games[0].title, 'Zelda');
+});
+test('full backup restores after removal, preserving file bytes', async () => {
+  const game = await imported();
+  const prepared = await prepareBackup(JSON.parse(await (await exportBackup(true)).text()));
+  await removeGame(game);
+  assert.equal((await read('Games')).length, 0);
+  assert.equal((await restoreBackup(prepared)).restored, 1);
+  const restored = (await read('Games'))[0];
+  assert.equal(
+    await contentHash(await (await read('Files', restored.fileId)).blob.arrayBuffer()),
+    game.fileId
+  );
+});
+test('restore into a nonempty library skips identical content', async () => {
+  await imported();
+  const prepared = await prepareBackup(JSON.parse(await (await exportBackup(true)).text()));
+  const before = (await read('Games'))[0];
+  assert.equal((await restoreBackup(prepared)).duplicates, 1);
+  assert.equal((await read('Games'))[0].id, before.id);
+});
+test('metadata-only backup reports missing game files', async () => {
+  const game = await imported();
+  const prepared = await prepareBackup(JSON.parse(await (await exportBackup(false)).text()));
+  await removeGame(game);
+  assert.equal((await restoreBackup(prepared)).missing, 1);
+  assert.equal((await read('Games')).length, 0);
+});
+test('corrupt backup hashes are rejected before writing', async () => {
+  await imported();
+  const backup = JSON.parse(await (await exportBackup(true)).text());
+  backup.fileManifest[0].content = btoa('broken');
+  await assert.rejects(prepareBackup(backup), /hash/);
+  assert.equal((await read('Games')).length, 1);
+});
+test('restore resolves a conflicting ID without replacing its existing game', async () => {
+  const game = await imported();
+  const prepared = await prepareBackup(JSON.parse(await (await exportBackup(true)).text()));
+  await removeGame(game);
+  await write([{ store: 'Games', value: { ...game, fileId: 'a'.repeat(64), title: 'keep this' } }]);
+  assert.equal((await restoreBackup(prepared)).restored, 1);
+  assert.equal((await read('Games', game.id)).title, 'keep this');
+  assert.equal((await read('Games')).length, 2);
+});
+test('a failed atomic write does not leave a stray file', async () => {
+  const game = await imported();
+  await assert.rejects(
+    write([
+      { store: 'Files', value: { id: 'stray', blob: new Blob(['x']) } },
+      { store: 'Games', value: { ...game, id: 'second' } }
+    ])
+  );
+  assert.equal(await read('Files', 'stray'), undefined);
+});
+test('deleting a game removes its cover and saves but keeps unrelated entries', async () => {
+  const game = await imported();
+  await write([
+    { store: 'Covers', value: { id: game.id, blob: new Blob(['cover']) } },
+    { store: 'Saves', value: { id: 'one', gameId: game.id } },
+    { store: 'Settings', value: { id: 'preference', value: 1 } }
+  ]);
+  await removeGame(game);
+  assert.equal((await read('Covers')).length, 0);
+  assert.equal((await read('Saves')).length, 0);
+  assert.equal((await read('Settings')).length, 1);
+});
+test('player state rules allow cancellation and block duplicate launch', () => {
+  assert.equal(canTransition('loading', 'closing'), true);
+  assert.equal(canTransition('running', 'loading'), false);
+  assert.equal(canTransition('error', 'closing'), true);
+  assert.equal(canTransition('closing', 'idle'), true);
+});
